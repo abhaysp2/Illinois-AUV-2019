@@ -1,0 +1,34 @@
+<launch>
+
+	<!-- Model to launch -->
+	<arg name="model" default="rexrov" />
+
+	<!-- Model file to launch -->
+	<arg name="model_file" default="upload_rexrov" />
+
+	<!-- Simulation envrionemnt file -->
+	<arg name="world" default="robosub_2019" />
+
+	<!-- launch gazebo simulation environment -->
+	<!-- <include file="$(find uuv_gazebo_worlds)/launch/$(arg world).launch" /> -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="worlds/robosub_2019.world"/>
+  </include>
+
+	<!-- launch submarine model -->
+	<include file="$(find uuv_descriptions)/launch/$(arg model_file).launch">
+		<arg name="x" default="-25"/>
+    <arg name="y" default="-35"/>
+    <arg name="z" default="-8"/>
+    <arg name="yaw" default="3.5066"/>
+	</include>
+
+	<!-- launch thruster control node and topic -->
+	<!-- <include file="$(find uuv_thruster_manager)/launch/thruster_manager.launch" >
+		<arg name="model_name" value="$(arg model)" />
+	</include> -->
+
+	<!-- remap arguments -->
+	<!-- <remap from="$(arg model)/cmd_vel" to="rexrov/thruster_manager/input" /> -->
+
+</launch>
